@@ -1,0 +1,46 @@
+/* Pílula com o ponto colorido do banco e um select nativo por cima. */
+.seletor-banco {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.75rem;
+  padding-left: 0.75rem;
+  border: 2px solid var(--borda);
+  border-radius: 16px;
+  background: var(--superficie-2);
+}
+
+.seletor-banco:focus-within {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.seletor-banco select {
+  height: 100%;
+  padding: 0 2rem 0 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--fonte-titulo);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  appearance: none;
+  cursor: pointer;
+}
+
+.seletor-banco select:focus-visible {
+  outline: none;
+}
+
+.seletor-banco option {
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.seletor-banco svg {
+  position: absolute;
+  right: 0.65rem;
+  color: var(--texto-suave);
+  pointer-events: none;
+}

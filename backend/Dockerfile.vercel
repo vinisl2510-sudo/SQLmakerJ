@@ -1,0 +1,19 @@
+# Compila o backend com a mesma versão Java do pom.xml.
+FROM maven:3.9-eclipse-temurin-25 AS build
+WORKDIR /build
+
+COPY pom.xml ./
+COPY src ./src
+RUN mvn -B -ntp -DskipTests package
+
+# A imagem final contém apenas o Java necessário para executar a aplicação.
+FROM eclipse-temurin:25-jre-noble
+WORKDIR /app
+
+COPY --from=build /build/target/backend-0.0.1-SNAPSHOT.jar /app/app.jar
+
+ENV PORT=8080
+EXPOSE 8080
+USER 10001:10001
+
+CMD ["java", "-XX:MaxRAMPercentage=70.0", "-jar", "/app/app.jar"]

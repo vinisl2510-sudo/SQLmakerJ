@@ -1,0 +1,46 @@
+.arquivo {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 2px solid var(--contorno);
+  border-radius: 18px;
+  background: var(--codigo-fundo);
+  box-shadow: var(--sombra-adesivo);
+}
+
+.arquivo-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.55rem 0.6rem 0.55rem 1rem;
+  border-bottom: 2px solid var(--contorno);
+  background: var(--superficie);
+}
+
+.arquivo-nome {
+  font-family: var(--fonte-codigo);
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.arquivo-acoes {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.arquivo pre {
+  max-height: 28rem;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow: auto;
+  color: var(--codigo-texto);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.arquivo code {
+  font-family: var(--fonte-codigo);
+}

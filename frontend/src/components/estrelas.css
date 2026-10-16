@@ -1,0 +1,73 @@
+/* Camada fixa atrás de todo o conteúdo (z-index negativo no contexto raiz). */
+.fundo-estrelas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.estrela {
+  position: absolute;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px var(--brilho-estrela));
+  animation: cintilar 3s ease-in-out infinite;
+}
+
+/* Estrelas piscam; brilhos de 4 pontas giram e faíscam. */
+.estrela-brilho {
+  animation-name: faiscar;
+}
+
+@keyframes cintilar {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75) rotate(-14deg);
+  }
+}
+
+@keyframes faiscar {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.4) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.15) rotate(45deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+/* Em telas estreitas o texto ocupa quase tudo: menos estrelas, menores e mais fracas. */
+@media (max-width: 46rem) {
+  .fundo-estrelas {
+    opacity: 0.45;
+  }
+
+  .estrela {
+    width: 18px;
+    height: 18px;
+  }
+
+  .so-desktop {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estrela {
+    animation: none;
+  }
+}

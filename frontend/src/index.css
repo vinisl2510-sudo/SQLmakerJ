@@ -1,0 +1,440 @@
+/*
+ * Cada cor é definida uma vez com light-dark(claro, escuro).
+ * Sem escolha salva, o tema segue o sistema (color-scheme: light dark);
+ * o botão do topo grava data-tema no <html> e fixa um dos dois.
+ */
+:root {
+  color-scheme: light dark;
+
+  --fundo: light-dark(#f4f2ff, #15132b);
+  --papel-grade: light-dark(#e2ddfa, #24204a);
+  --superficie: light-dark(#ffffff, #221f43);
+  --superficie-2: light-dark(#f7f5ff, #2b2752);
+  --texto: light-dark(#231f42, #f1efff);
+  --texto-suave: light-dark(#5d5880, #b6b1dd);
+  --borda: light-dark(#e2ddf5, #3a3566);
+  --tracejado: light-dark(#b9b1e6, #5d5697);
+  --contorno: light-dark(#231f42, #9a91e6);
+  --sombra: light-dark(#231f42, #07061a);
+  --foco: light-dark(#5b4bea, #ffc53d);
+
+  --primaria: #5b4bea;
+  --primaria-hover: #4e3fdc;
+  --sol: #ffc53d;
+  --sol-claro: light-dark(#fff3cf, #3a3320);
+  --tinta-fixa: #231f42;
+
+  --perigo: light-dark(#c2263a, #ff8f9c);
+  --perigo-fundo: light-dark(#ffe8ea, #3b1b2c);
+  --codigo-fundo: light-dark(#231f42, #0e0c22);
+  --codigo-texto: #edebff;
+
+  --estrela-rosa: #ff9bb0;
+  --estrela-violeta: light-dark(#7b6cf6, #b3a8ff);
+  --estrela-azul: light-dark(#4f9be8, #8fc3ff);
+  --brilho-estrela: light-dark(rgba(255, 214, 120, 0), rgba(255, 214, 120, 0.6));
+
+  --mysql: light-dark(#1597b8, #3dbbd9);
+  --postgresql: light-dark(#4f6bed, #8399ff);
+  --oracle: light-dark(#e5484d, #ff6f6b);
+
+  --fonte: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fonte-titulo: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --fonte-codigo: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --sombra-adesivo: 4px 4px 0 var(--sombra);
+  --sombra-adesivo-pequena: 3px 3px 0 var(--sombra);
+}
+
+:root[data-tema='claro'] {
+  color-scheme: light;
+}
+
+:root[data-tema='escuro'] {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Evita que o layout pule quando a barra de rolagem aparece ou some. */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cada banco tem uma cor, usada só para indicar a origem do script. */
+[data-banco='MYSQL'] {
+  --cor-banco: var(--mysql);
+}
+
+[data-banco='POSTGRESQL'] {
+  --cor-banco: var(--postgresql);
+}
+
+[data-banco='ORACLE'] {
+  --cor-banco: var(--oracle);
+}
+
+.ponto-banco {
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--contorno);
+  border-radius: 50%;
+  background: var(--cor-banco, var(--texto-suave));
+}
+
+/* Balão de fala do mascote, usado nas respostas do modo manual. */
+
+.balao {
+  justify-self: start;
+  max-width: 100%;
+  padding: 0.85rem 1.1rem;
+  border: 2px solid var(--contorno);
+  border-radius: 6px 20px 20px 20px;
+  background: var(--superficie);
+  box-shadow: var(--sombra-adesivo-pequena);
+}
+
+.balao-erro {
+  border-color: var(--perigo);
+  background: var(--perigo-fundo);
+  color: var(--perigo);
+  font-weight: 700;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.etiqueta-banco {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.05rem 0.6rem 0.05rem 0.45rem;
+  border: 2px solid var(--borda);
+  border-radius: 999px;
+  background: var(--superficie-2);
+  color: var(--texto-suave);
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+/* Mascote */
+
+.mascote {
+  flex: none;
+  overflow: visible;
+}
+
+.mascote-vivo .mascote-olhos {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: piscar-olhos 5s infinite;
+}
+
+@keyframes piscar-olhos {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+
+/* Botões de adesivo: afundam no clique, ocupando o lugar da sombra. */
+
+.botao,
+.botao-pequeno,
+.botao-tema {
+  border: 2px solid var(--contorno);
+  cursor: pointer;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.botao:hover,
+.botao-tema:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--sombra);
+}
+
+.botao:active,
+.botao-tema:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--sombra);
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 14px;
+  background: var(--primaria);
+  box-shadow: var(--sombra-adesivo);
+  color: #ffffff;
+  font-family: var(--fonte-titulo);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.botao:hover {
+  background: var(--primaria-hover);
+}
+
+.botao:disabled {
+  opacity: 0.7;
+  cursor: progress;
+  transform: none;
+  box-shadow: var(--sombra-adesivo);
+}
+
+.botao-pequeno {
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  background: var(--superficie);
+  box-shadow: 2px 2px 0 var(--sombra);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.botao-pequeno:hover:not(:disabled) {
+  background: var(--sol-claro);
+}
+
+.botao-pequeno:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.botao-pequeno:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao,
+  .botao-pequeno,
+  .botao-tema {
+    transition: none;
+  }
+
+  .mascote-vivo .mascote-olhos {
+    animation: none;
+  }
+}
+
+/* Estrutura */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.pular {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: var(--primaria);
+  color: #ffffff;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+
+.pular:focus {
+  transform: none;
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  width: min(100% - 1.5rem, 76rem);
+  margin: 0.875rem auto 0;
+  padding: 0.5rem 0.625rem 0.5rem 0.875rem;
+  border: 2px solid var(--contorno);
+  border-radius: 22px;
+  background: var(--superficie);
+  box-shadow: var(--sombra-adesivo);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.topo nav {
+  margin-left: auto;
+}
+
+.topo ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 3px;
+  list-style: none;
+}
+
+.topo nav a {
+  display: block;
+  padding: 0.4rem 0.85rem;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: var(--texto-suave);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topo nav a:hover {
+  background: var(--superficie-2);
+  color: var(--texto);
+}
+
+.topo nav a[aria-current='page'] {
+  border-color: var(--contorno);
+  background: var(--sol);
+  box-shadow: 2px 2px 0 var(--sombra);
+  color: var(--tinta-fixa);
+}
+
+.botao-tema {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  background: var(--superficie-2);
+  box-shadow: var(--sombra-adesivo-pequena);
+}
+
+/* No celular o menu desce para uma linha própria que rola para o lado. */
+@media (max-width: 46rem) {
+  .topo nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .topo ul {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .botao-tema {
+    margin-left: auto;
+  }
+}
+
+.conteudo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Páginas de conteúdo */
+
+.pagina {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+}
+
+.pagina-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pagina-centro .mascote {
+  margin-bottom: 1.25rem;
+}
+
+.pagina-titulo {
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  line-height: 1.1;
+}
+
+.pagina-resumo {
+  max-width: 52ch;
+  margin-top: 0.75rem;
+  color: var(--texto-suave);
+  font-size: 1.125rem;
+}
+
+.pagina-acao {
+  margin-top: 2rem;
+}

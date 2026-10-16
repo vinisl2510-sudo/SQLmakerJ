@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 13 112 112">
+  <!-- O mascote do SQLmaker, com traço mais grosso e sem detalhes pequenos para ficar legível em 16px. -->
+  <g stroke="#231f42" stroke-width="9" stroke-linejoin="round">
+    <path d="M14 34 V104 A46 15 0 0 0 106 104 V34" fill="#ffc53d" />
+    <ellipse cx="60" cy="34" rx="46" ry="15" fill="#ffe08a" />
+  </g>
+  <g fill="#231f42">
+    <ellipse cx="43" cy="64" rx="8" ry="10" />
+    <ellipse cx="77" cy="64" rx="8" ry="10" />
+  </g>
+  <path d="M48 84 Q60 95 72 84" fill="none" stroke="#231f42" stroke-width="7" stroke-linecap="round" />
+</svg>
